@@ -1,0 +1,22 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { SectionGeneric } from './section-generic';
+
+describe('SectionGeneric', () => {
+  let component: SectionGeneric;
+  let fixture: ComponentFixture<SectionGeneric>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [SectionGeneric],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(SectionGeneric);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
