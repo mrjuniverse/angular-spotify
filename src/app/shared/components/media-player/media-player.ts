@@ -31,9 +31,25 @@ export class MediaPlayer implements OnInit, OnDestroy {
     const elNative: HTMLElement = event.currentTarget as HTMLElement
     const { clientX } = event
     const { x, width } = elNative.getBoundingClientRect()
-    const clickX = clientX - x 
+    const clickX = clientX - x //TODO: 1050 - x
     const percentageFromX = (clickX * 100) / width
     //console.log(`Click(x): ${percentageFromX}`);
     this.multimediaService.seekAudio(percentageFromX)
+  }
+
+  setVolume(event: Event): void {
+    const input = event.target as HTMLInputElement
+    this.multimediaService.setVolume(Number(input.value))
+  }
+
+  toggleMute(): void {
+    this.multimediaService.toggleMute()
+  }
+
+  getVolumeIcon(): string {
+    const volume = this.multimediaService.volume$.value
+    if (volume === 0) return 'uil-volume-mute'
+    if (volume < 50) return 'uil-volume-down'
+    return 'uil-volume-up'
   }
 }

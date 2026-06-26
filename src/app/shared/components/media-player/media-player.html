@@ -67,8 +67,11 @@
         <button class="btn-media">
             <i class="uil uil-boombox"></i>
         </button>
-        <button class="btn-media">
-            <i class="uil uil-volume-off"></i>
-        </button>
+        <div class="volume-control">
+            <button class="btn-media" (click)="toggleMute()">
+                <i [ngClass]="getVolumeIcon()" class="uil"></i>
+            </button>
+            <input type="range" class="volume-slider" min="0" max="100" [value]="multimediaService.volume$ | async" (input)="setVolume($event)">
+        </div>
     </div>
 </ng-template>

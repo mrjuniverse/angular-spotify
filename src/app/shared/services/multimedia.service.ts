@@ -15,6 +15,8 @@ export class MultimediaService {
   public timeRemaining$: BehaviorSubject<string> = new BehaviorSubject('-00:00')
   public playerStatus$: BehaviorSubject<string> = new BehaviorSubject('paused')
   public playerPercentage$: BehaviorSubject<number> = new BehaviorSubject(0)
+  public volume$: BehaviorSubject<number> = new BehaviorSubject(25)
+  private previousVolume: number = 25
 
   constructor() {
 
@@ -109,5 +111,23 @@ export class MultimediaService {
     const percentageToSecond = (percentage * duration) / 100
     //console.log(percentageToSecond)
     this.audio.currentTime = percentageToSecond
+  }
+
+  public setVolume(value: number): void {
+    if (value > 0) {
+      this.previousVolume = value
+    }
+    this.volume$.next(value)
+    this.audio.volume = value / 100
+  }
+
+  public toggleMute(): void {
+    const current = this.volume$.value
+    if (current > 0) {
+      this.previousVolume = current
+      this.setVolume(0)
+    } else {
+      this.setVolume(this.previousVolume)
+    }
   }
 }
