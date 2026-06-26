@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TrackModel } from '@core/models/tracks.models';
 import { MultimediaService } from '@shared/services/multimedia.service';
 import { Subscription } from 'rxjs';
 
@@ -26,5 +25,15 @@ export class MediaPlayer implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.listObservers$.forEach(u => u.unsubscribe())
+  }
+
+  handlePosition(event: MouseEvent): void {
+    const elNative: HTMLElement = event.currentTarget as HTMLElement
+    const { clientX } = event
+    const { x, width } = elNative.getBoundingClientRect()
+    const clickX = clientX - x 
+    const percentageFromX = (clickX * 100) / width
+    //console.log(`Click(x): ${percentageFromX}`);
+    this.multimediaService.seekAudio(percentageFromX)
   }
 }
