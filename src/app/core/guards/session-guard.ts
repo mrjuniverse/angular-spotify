@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateFn, GuardResult, MaybeAsync, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
-
-//export const sessionGuard: CanActivateFn = (route, state) => {
-//  return true;
-//};
 
 @Injectable({
   providedIn: 'root'
@@ -24,18 +20,15 @@ export class sessionGuard implements CanActivate {
 
   checkCookieSession(): boolean {
     try {
-
       const token: boolean = this.cookieService.check('token')
       if( !token ){
         this.router.navigate(['/', 'auth'])
+        return false
       }
-      return token
-
+      return true
     }catch(e){
       console.log('Algo sucedio ?? ❌❌', e);
       return false
     }
-  
   }
-
 }
