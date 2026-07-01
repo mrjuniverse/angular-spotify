@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FavoritesRoutingModule } from './favorites-routing-module';
@@ -9,4 +9,11 @@ import { SharedModule } from '@shared/shared-module';
   declarations: [FavoritePage],
   imports: [CommonModule, FavoritesRoutingModule, SharedModule],
 })
-export class FavoritesModule {}
+export class FavoritesModule implements OnInit{
+
+  constructor() {}
+
+  ngOnInit(): void {
+    
+  }
+}
